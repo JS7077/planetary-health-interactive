@@ -1,7 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import './App.css'
-
-
+import { Earth } from './Earth.tsx'
 
 function Box() {
   return (
@@ -18,10 +17,12 @@ function Box() {
 function App() {
 
   return (
-    <Canvas>
-      <perspectiveCamera args={[90, 90, 90]}/>
-      <Box />
-    </Canvas>
+    <div id='canvasDiv'>
+      <Canvas camera={{ position: [-20, 0, -20], fov: 50 }}>
+        <Box />
+        <Earth position={[1, -1, 1]}/>
+      </Canvas>
+    </div>
   )
 }
 
