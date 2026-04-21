@@ -1,16 +1,19 @@
 import { Canvas } from '@react-three/fiber'
 import './App.css'
 import { Earth } from './Earth.tsx'
+import { Sun } from './ozone/Sun.tsx'
 
 function App() {
 
   return (
     <div id='canvasDiv'>
-      <Canvas camera={{ position: [0, 0, -30], fov: 50 }}>
+      <Canvas orthographic camera={{ zoom: 30, position: [0, 0, 100], fov: 50 }}>
         <ambientLight intensity={1.5} /> 
         <directionalLight position={[10, 10, 5]} intensity={2} />
 
-        <Earth position={[10, -11, 1]} scale={1.2} />
+        <Earth worldRot={[Math.PI * -0.5, 0, 0]} position={[-10, -11, 1]} scale={1.1} />
+
+        <Sun position={[12, 0, 0]}/>
       </Canvas>
     </div>
   )
