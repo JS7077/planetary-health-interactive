@@ -19,11 +19,14 @@ type GLTFResult = GLTF & {
   }
 }
 
-interface ThreeD {pos: [x: number, y: number, z: number]}
-type GlobeProps = JSX.IntrinsicElements['group'] & {worldRot: [...ThreeD['pos'], order?: THREE.EulerOrder]}
+interface ThreeD {dirs: [x: number, y: number, z: number]}
+type GlobeProps = 
+JSX.IntrinsicElements['group'] 
+& {worldRot: [...ThreeD['dirs'], order?: THREE.EulerOrder]}
+& {rotSpeed: ThreeD}
 
 const faceColor = 0xefbf21
-function Eye({pos}: ThreeD) {
+function Eye({dirs: pos}: ThreeD) {
   return (
     <mesh position={pos} scale={[1, 1.4, .1]}>
       <torusGeometry args={[1, .2, 12, 48]}/>
@@ -47,8 +50,8 @@ function Face(props: JSX.IntrinsicElements['group']) {
     <group {...props} >
       <Float rotationIntensity={0} floatingRange={[0, .5]} speed={2}>
         <group name='eyes'>
-          <Eye pos={[0, 0, 0]} />
-          <Eye pos={[-4.1, 0, 0]} />
+          <Eye dirs={[0, 0, 0]} />
+          <Eye dirs={[-4.1, 0, 0]} />
         </group>
         <Smile />
       </Float>
@@ -56,13 +59,16 @@ function Face(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-function Globe({worldRot, ...props}: GlobeProps) {
+function Globe({ worldRot, rotSpeed, ...props }: GlobeProps) {
   const groupRef = useRef<THREE.Group>(null)
   const meshRef = useRef<THREE.Mesh>(null)
   const { nodes, materials } = useGLTF('/uploads_files_5973654_globe.glb') as GLTFResult
 
   useFrame((state, delta) => {
-    meshRef.current.rotation.y += delta * .1
+    const rot = meshRef.current.rotation
+    rot.x += delta * rotSpeed['dirs'][0]
+    rot.y += delta * rotSpeed['dirs'][1]
+    rot.z += delta * rotSpeed['dirs'][2]
   })
 
   return (
@@ -96,10 +102,10 @@ function Globe({worldRot, ...props}: GlobeProps) {
   )
 }
 
-export function Earth({worldRot, ...props}: GlobeProps) {
+export function Earth({worldRot, rotSpeed, ...props}: GlobeProps) {
   return (
     <group {...props} dispose={null}>
-      <Globe worldRot={worldRot}/>
+      <Globe worldRot={worldRot} rotSpeed={rotSpeed}/>
       <Face position={[2.1, 10, 10]}/>
     </group>
   )

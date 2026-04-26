@@ -37,9 +37,10 @@ export function RadiationSquiggle(props: JSX.IntrinsicElements['mesh']) {
     uTime: { value: 0 },
     uColor: { value: new THREE.Color('#ff5500') }
   }), [])
+  const uniformsRef = useRef(uniforms)
 
   useFrame((state) => {
-    uniforms.uTime.value = state.clock.elapsedTime
+    uniformsRef.current.uTime.value = state.clock.elapsedTime
   })
 
   return (
