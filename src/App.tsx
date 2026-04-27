@@ -1,12 +1,15 @@
 import { Canvas } from '@react-three/fiber'
 import './App.css'
 import { OzoneScene } from './ozone/Ozone.tsx'
+import { Sidebar } from './Sidebar.tsx'
 
 function App() {
 
   return (
-    <div id='canvasDiv'>
-      <Canvas orthographic camera={{ zoom: 30, position: [0, 0, 100], fov: 50 }}>
+    <div id='main'>
+      <Sidebar />
+      
+      <Canvas orthographic camera={{ zoom: 30, position: [0, 0, 100], fov: 50 }} >
         <ambientLight intensity={1.5} /> 
         <directionalLight position={[10, 10, 5]} intensity={2} />
 
