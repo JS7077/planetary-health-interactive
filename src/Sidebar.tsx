@@ -1,20 +1,25 @@
-export function Sidebar() {
+import type { SetURLSearchParams } from "react-router-dom";
+import { Page, pageQuery } from "./Constants";
+
+export function Sidebar(setSearchParams: SetURLSearchParams) {
+    const pages = Object.values(Page) as Page[]
+    const items = pages.map(pg => <Item pg={pg} setSearchParams={setSearchParams} />)
+
     return (
-    <>
         <nav>
             <ol>
-                <li>Introduction</li>
-                <li>Climate Change</li>
-                <li>Biosphere Integrity</li>
-                <li>Biogeochemical Flows</li>
-                <li>Land Use</li>
-                <li>Freshwater Use</li>
-                <li>Novel Entities</li>
-                <li>Ozone</li>
-                <li>Ocean Acidification</li>
-                <li>Aerosols</li>
+                {items}
             </ol>
         </nav>
-    </>
+    )
+}
+
+function Item({pg, setSearchParams}: {pg: Page, setSearchParams: SetURLSearchParams}) {
+    return (
+        <li>
+            <button onClick={()=>setSearchParams({pageQuery: pg})}>
+                {pg}
+            </button>
+        </li>
     )
 }
