@@ -13,4 +13,4 @@ export const Page = {
 } as const 
 export type Page = typeof Page[keyof typeof Page]
 
-export const pageQuery = 'page';
+export const PAGE_QUERY: string = 'page';
