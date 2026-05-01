@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import * as THREE from 'three'
 
 function Button({ onClick, isUp }: { onClick: ()=>void, isUp?: boolean }) {
@@ -12,16 +13,29 @@ function Button({ onClick, isUp }: { onClick: ()=>void, isUp?: boolean }) {
     shape.lineTo(0, -w)
     shape.lineTo(0, 0)
 
+    const [hover, setHover] = useState(false)
+    useEffect(() => {document.body.style.cursor = hover ? 'pointer' : 'auto'}, [hover])
+
     return (
-        <group rotation={[0,0,isUp?0:Math.PI]} scale={.4} position={[2, 10 * (isUp?1:-1), 0]} >
+        <group 
+        rotation={[0,0,isUp?0:Math.PI]} 
+        scale={hover?.31:.3} 
+        position={[2, 10 * (isUp?1:-1), 0]} 
+        onPointerOver={() => setHover(true)}
+        onPointerOut={() => setHover(false)}
+        >
             <group scale={[1, .85, 1]} onClick={onClick} >
                 <mesh rotation={[Math.PI/2, 0, 0]} >
                     <cylinderGeometry args={[r,r, 2]} />
-                    <meshToonMaterial color={'teal'} />
+                    <meshToonMaterial color={'teal'} transparent opacity={.75} />
                 </mesh>
                 <mesh position={[-l, -r/5, 0]} >
                     <meshToonMaterial color='black' />
                     <extrudeGeometry args={[shape, {depth: 1}]} />
+                </mesh>
+                <mesh rotation={[Math.PI/2,0,0]} position={[0,0,0]} visible={hover} >
+                    <cylinderGeometry args={[r,r,2]} />
+                    <meshToonMaterial color={'gray'} />
                 </mesh>
             </group>
         </group>

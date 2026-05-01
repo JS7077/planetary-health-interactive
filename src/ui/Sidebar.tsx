@@ -7,7 +7,7 @@ export function Sidebar({setSearchParams}: {setSearchParams: SetURLSearchParams}
     const items = pages.map(pg => <Item pg={pg} setSearchParams={setSearchParams} />)
 
     return (
-        <Html position={[-24,12,0]} >
+        <Html position={[-24.5,12.5,0]} >
             <nav>
                 <ol>
                     {items}
@@ -20,11 +20,11 @@ export function Sidebar({setSearchParams}: {setSearchParams: SetURLSearchParams}
 function Item({pg, setSearchParams}: {pg: Page, setSearchParams: SetURLSearchParams}) {
     return (
         <li>
-            <button onClick={()=>{
+            <a onClick={()=>{
                 setSearchParams([[PAGE_QUERY, pg]])
             }}>
                 {pg}
-            </button>
+            </a>
         </li>
     )
 }

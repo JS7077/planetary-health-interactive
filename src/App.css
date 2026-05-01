@@ -6,12 +6,15 @@
 }
 
 nav {
-  width: 20svw;
+  width: 16svw;
+  height: 100svh;
   color: #8FC988;
+  background-color: white;
 }
 
 li {
   text-align: left;
+  margin-top: 3px;
 }
 
 /* Sidebar {
@@ -22,4 +25,16 @@ Canvas {
   height: 100%;
   width: 100%;
   min-height: 50vh;
+}
+
+.space {
+  background-image: url(https://cdn.mos.cms.futurecdn.net/HuGGeENt6kGyixe3hT9tnY.jpg);
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: underline;
 }

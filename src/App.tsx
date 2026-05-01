@@ -24,11 +24,11 @@ function App() {
     case Pages.INTRO: scene = <IntroScene foos={actions} />; break
     case Pages.CLIMATE: scene = <ClimateChangeScene foos={actions}/>; break
     case Pages.OZONE: scene = <OzoneScene foos={actions} />; break
-    default: scene = <group />
+    default: scene = <IntroScene foos={actions} />
   }
 
   return (
-    <div id='main'>
+    <div id='main' className={searchParams.get(PAGE_QUERY)===Pages.OZONE?'space':''} >
       <Canvas orthographic camera={{ zoom: 30, position: [0, 0, 100], fov: 50 }} >
         <ambientLight intensity={1.5} /> 
         <directionalLight position={[10, 10, 5]} intensity={2} />

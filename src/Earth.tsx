@@ -28,20 +28,32 @@ JSX.IntrinsicElements['group']
 const faceColor = 0xefbf21
 function Eye({dirs: pos}: ThreeD) {
   return (
-    <mesh position={pos} scale={[1, 1.4, .1]}>
-      <torusGeometry args={[1, .2, 12, 48]}/>
-      <meshToonMaterial color={faceColor} />
-    </mesh>
+    <group position={pos} scale={[1, 1.4, .1]} >
+      <mesh>
+        <torusGeometry args={[1, .2, 12, 48]}/>
+        <meshToonMaterial color={faceColor} />
+      </mesh>
+      <mesh position={[-0.1,0.01,-1]} >
+        <torusGeometry args={[1, .2, 12, 48]}/>
+        <meshToonMaterial color={'black'} />
+      </mesh>
+    </group>
   )
 }
 function Smile() {
   const thetaDiff = Math.PI / 4
   return (
-    <mesh position={[-2, -1, 0]} rotation={[0, 0, Math.PI]}>
-      {/* args: [innerRadius, outerRadius, segments, phiSegments, thetaStart, thetaLength] */}
-      <ringGeometry args={[2.8, 3.3, 32, 1, thetaDiff, Math.PI - 2 * thetaDiff]} />
-      <meshToonMaterial color={faceColor} side={THREE.DoubleSide} />
-    </mesh>
+    <group position={[-2, -1, 0]} rotation={[0, 0, Math.PI]} >
+      <mesh>
+        {/* args: [innerRadius, outerRadius, segments, phiSegments, thetaStart, thetaLength] */}
+        <ringGeometry args={[2.8, 3.3, 32, 1, thetaDiff, Math.PI - 2 * thetaDiff]} />
+        <meshToonMaterial color={faceColor} side={THREE.DoubleSide} />
+      </mesh>
+      <mesh position={[0.1,0.02,-1]} >
+        <ringGeometry args={[2.8, 3.3, 32, 1, thetaDiff, Math.PI - 2 * thetaDiff]} />
+        <meshToonMaterial color={'black'} />
+      </mesh>
+    </group>
   )
 }
 
