@@ -3,29 +3,38 @@ import './App.css'
 import { OzoneScene } from './ozone/Ozone.tsx'
 import { Sidebar } from './ui/Sidebar.tsx'
 import { useSearchParams } from 'react-router-dom'
-import { Page, PAGE_QUERY } from './Constants.ts'
+import { type Page, Pages, PAGE_QUERY } from './Constants.ts'
 import { ClimateChangeScene } from './climate-change/ClimateChange.tsx'
-import { Button } from './ui/Nav.tsx'
+import { useMemo, useState, type Dispatch } from 'react'
+import { Buttons } from './ui/Nav.tsx'
+import { IntroScene } from './intro/Intro.tsx'
+
+export interface SceneProps {foos: { setOnUp: Dispatch<Page>, setOnDown: Dispatch<Page> }}
 
 function App() {
+  const [onUp, setOnUp] = useState('')
+  const [onDown, setOnDown] = useState('')
+  const actions = useMemo(() => ({
+    setOnUp, setOnDown
+  }), [])
+
   const [searchParams, setSearchParams] = useSearchParams()
   let scene;
   switch(searchParams.get(PAGE_QUERY) as Page) {
-    case Page.CLIMATE: scene = <ClimateChangeScene />; break
-    case Page.OZONE: scene = <OzoneScene />; break
+    case Pages.INTRO: scene = <IntroScene foos={actions} />; break
+    case Pages.CLIMATE: scene = <ClimateChangeScene foos={actions}/>; break
+    case Pages.OZONE: scene = <OzoneScene foos={actions} />; break
     default: scene = <group />
   }
 
   return (
     <div id='main'>
-      <Sidebar setSearchParams={setSearchParams} />
-
       <Canvas orthographic camera={{ zoom: 30, position: [0, 0, 100], fov: 50 }} >
         <ambientLight intensity={1.5} /> 
         <directionalLight position={[10, 10, 5]} intensity={2} />
 
-        <Button rotateX={Math.PI} position={[-10, 0, 0]} />
-        <Button position={[10, 0, 0]} />
+        <Sidebar setSearchParams={setSearchParams} />
+        <Buttons onUp={()=>setSearchParams([[PAGE_QUERY,onUp]])} onDown={()=>setSearchParams([[PAGE_QUERY,onDown]])} />
 
         {scene}
       </Canvas>

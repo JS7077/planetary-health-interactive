@@ -1,4 +1,4 @@
-export const Page = {
+export const Pages = {
     INTRO: 'Introduction',
     CLIMATE: 'Climate Change',
     BIOSPHERE: 'Biosphere Integrity',
@@ -11,6 +11,6 @@ export const Page = {
     AEROSOLS: 'Aerosols'
 
 } as const 
-export type Page = typeof Page[keyof typeof Page]
+export type Page = typeof Pages[keyof typeof Pages]
 
 export const PAGE_QUERY: string = 'page';

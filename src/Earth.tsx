@@ -22,8 +22,8 @@ type GLTFResult = GLTF & {
 interface ThreeD {dirs: [x: number, y: number, z: number]}
 type GlobeProps = 
 JSX.IntrinsicElements['group'] 
-& {worldRot: [...ThreeD['dirs'], order?: THREE.EulerOrder]}
-& {rotSpeed: ThreeD}
+& {worldRot?: [...ThreeD['dirs'], order?: THREE.EulerOrder]}
+& {rotSpeed?: ThreeD}
 
 const faceColor = 0xefbf21
 function Eye({dirs: pos}: ThreeD) {
@@ -59,7 +59,7 @@ function Face(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-function Globe({ worldRot, rotSpeed, ...props }: GlobeProps) {
+function Globe({ worldRot, rotSpeed = {dirs: [0,0,0]}, ...props }: GlobeProps) {
   const groupRef = useRef<THREE.Group>(null)
   const meshRef = useRef<THREE.Mesh>(null)
   const { nodes, materials } = useGLTF('/uploads_files_5973654_globe.glb') as GLTFResult
@@ -72,7 +72,7 @@ function Globe({ worldRot, rotSpeed, ...props }: GlobeProps) {
   })
 
   return (
-    <group ref={groupRef} {...props}>
+    <group ref={groupRef} {...props} >
       <group name="Scene">
         <mesh
           visible={false}
@@ -104,9 +104,9 @@ function Globe({ worldRot, rotSpeed, ...props }: GlobeProps) {
 
 export function Earth({worldRot, rotSpeed, ...props}: GlobeProps) {
   return (
-    <group {...props} dispose={null}>
-      <Globe worldRot={worldRot} rotSpeed={rotSpeed}/>
-      <Face position={[2.1, 10, 10]}/>
+    <group {...props} dispose={null} >
+      <Globe worldRot={worldRot} rotSpeed={rotSpeed} position={[0,-9.5,0]} />
+      <Face position={[2.1, .75, 10]}/>
     </group>
   )
 }

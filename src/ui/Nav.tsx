@@ -1,10 +1,9 @@
-import type { JSX } from "react";
 import * as THREE from 'three'
 
-export function Button(props: JSX.IntrinsicElements['group']) {
+function Button({ onClick, isUp }: { onClick: ()=>void, isUp?: boolean }) {
     const r = 5;
 
-    const h = 5, l = h, w = 1
+    const h = 4, l = 4, w = 1.5
     const shape = new THREE.Shape()
     shape.lineTo(l, h)
     shape.lineTo(2 * l, 0)
@@ -14,15 +13,26 @@ export function Button(props: JSX.IntrinsicElements['group']) {
     shape.lineTo(0, 0)
 
     return (
-        <group {...props}>
-            <mesh rotation={[Math.PI/2, 0, 0]} >
-                <cylinderGeometry args={[r,r, 2]} />
-                <meshToonMaterial color={'teal'} />
-            </mesh>
-            <mesh position={[-l, 0, 0]} >
-                <meshToonMaterial color='black' />
-                <extrudeGeometry args={[shape, {depth: 1}]} />
-            </mesh>
+        <group rotation={[0,0,isUp?0:Math.PI]} scale={.4} position={[2, 10 * (isUp?1:-1), 0]} >
+            <group scale={[1, .85, 1]} onClick={onClick} >
+                <mesh rotation={[Math.PI/2, 0, 0]} >
+                    <cylinderGeometry args={[r,r, 2]} />
+                    <meshToonMaterial color={'teal'} />
+                </mesh>
+                <mesh position={[-l, -r/5, 0]} >
+                    <meshToonMaterial color='black' />
+                    <extrudeGeometry args={[shape, {depth: 1}]} />
+                </mesh>
+            </group>
+        </group>
+    )
+}
+
+export function Buttons({onUp, onDown}: { onUp: ()=>void, onDown: ()=>void} ) {
+    return (
+        <group>
+            <Button onClick={onUp} isUp />
+            <Button onClick={onDown} />
         </group>
     )
 }
