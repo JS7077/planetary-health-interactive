@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import './App.css'
 import { OzoneScene } from './ozone/Ozone.tsx'
-import { Sidebar } from './ui/Sidebar.tsx'
+import { Manager } from './ui/Sidebar.tsx'
 import { useSearchParams } from 'react-router-dom'
 import { type Page, Pages, PAGE_QUERY } from './Constants.ts'
 import { ClimateChangeScene } from './climate-change/ClimateChange.tsx'
@@ -33,7 +33,7 @@ function App() {
         <ambientLight intensity={1.5} /> 
         <directionalLight position={[10, 10, 5]} intensity={2} />
 
-        <Sidebar setSearchParams={setSearchParams} />
+        <Manager setSearchParams={setSearchParams} />
         <Buttons onUp={()=>setSearchParams([[PAGE_QUERY,onUp]])} onDown={()=>setSearchParams([[PAGE_QUERY,onDown]])} />
 
         {scene}

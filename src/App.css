@@ -38,3 +38,11 @@ a:hover {
 a {
   text-decoration: underline;
 }
+
+svg {
+  display: block;
+  margin-top: .5em;
+  margin-left: .5em;
+  margin-right: .5em;
+  margin-bottom: -.8em;
+}
