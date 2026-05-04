@@ -2,7 +2,7 @@ import type { SetURLSearchParams } from "react-router-dom";
 import { Pages, PAGE_QUERY, type Page } from "../Constants";
 import { Html, RoundedBox } from "@react-three/drei";
 import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
-import Collapse from './collapse-svgrepo-com.svg?react'
+import Collapse from '../assets/collapse-svgrepo-com.svg?react' //https://www.svgrepo.com/show/459017/collapse.svg
 
 export function Manager({setSearchParams}: {setSearchParams: SetURLSearchParams}) {
     const [isCollapsed, setIsCollapsed] = useState(true)
@@ -14,18 +14,18 @@ export function Manager({setSearchParams}: {setSearchParams: SetURLSearchParams}
 
 function Sidebar({setSearchParams, setIsCollapsed}: {setSearchParams: SetURLSearchParams, setIsCollapsed: Dispatch<SetStateAction<boolean>>}) {
     const pages = Object.values(Pages) as Page[]
-    const items = pages.map(pg => <Item pg={pg} setSearchParams={setSearchParams} />)
+    const items = pages.map(pg => <Item pg={pg} setSearchParams={setSearchParams} setIsCollapsed={setIsCollapsed} />)
 
     const svgSide = '1.5em'
 
     return (
-        <Html position={[-24.5,11.9,0]} >
-            <Collapse 
-            height={svgSide}
-            width={svgSide}
-            onClick={() => setIsCollapsed(true)}
-            />
+        <Html position={[-24.5,11.86,0]} >
             <nav>
+                <Collapse 
+                height={svgSide}
+                width={svgSide}
+                onClick={() => setIsCollapsed(true)}
+                />
                 <ol>
                     {items}
                 </ol>
@@ -34,11 +34,12 @@ function Sidebar({setSearchParams, setIsCollapsed}: {setSearchParams: SetURLSear
     )
 }
 
-function Item({pg, setSearchParams}: {pg: Page, setSearchParams: SetURLSearchParams}) {
+function Item({pg, setSearchParams, setIsCollapsed}: {pg: Page, setSearchParams: SetURLSearchParams, setIsCollapsed: Dispatch<SetStateAction<boolean>>}) {
     return (
         <li>
             <a onClick={()=>{
                 setSearchParams([[PAGE_QUERY, pg]])
+                setIsCollapsed(true)
             }}>
                 {pg}
             </a>

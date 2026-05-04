@@ -1,6 +1,7 @@
 import type { SceneProps } from "../App";
 import { Pages } from "../Constants";
 import { Earth } from "../Earth";
+import { TooltipPoint } from "../ui/Text";
 import { RadiationSquiggle } from "./Ray";
 import { Forcefield } from "./Shield";
 import { Sun } from "./Sun";
@@ -15,7 +16,7 @@ export function OzoneScene(actions: SceneProps) {
     return (
         <group>
             <group>
-                <Earth worldRot={[Math.PI * -0.5, 0, 0]} position={[earthX, 0, 0]} scale={1.1} rotSpeed={{dirs: [0, 0.05, 0]}}/>
+                <Earth worldRot={[Math.PI * -0.5, 0, 0]} position={[earthX, 0, 0]} scale={1.1} rotSpeed={[0, 0.05, 0]}/>
                 <Forcefield radius={9} position={[earthX, 0, 1]}  />
             </group>
 
@@ -27,6 +28,8 @@ export function OzoneScene(actions: SceneProps) {
                     <RadiationSquiggle position={[4.89, -3.03642, 0]} rotation={[0, -0.12, Math.PI / 1.8]} scale={3.32}/>
                 </group>
             </group>
+
+            <TooltipPoint position={[0,0,0]} />
         </group>
     )
 }

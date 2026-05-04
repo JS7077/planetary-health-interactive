@@ -7,6 +7,7 @@ import { useRef, type JSX } from 'react'
 import { useGLTF, Float } from '@react-three/drei'
 import { type GLTF } from 'three-stdlib'
 import { useFrame } from '@react-three/fiber'
+import type { ThreeD } from './Constants'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -19,14 +20,13 @@ type GLTFResult = GLTF & {
   }
 }
 
-interface ThreeD {dirs: [x: number, y: number, z: number]}
 type GlobeProps = 
 JSX.IntrinsicElements['group'] 
-& {worldRot?: [...ThreeD['dirs'], order?: THREE.EulerOrder]}
+& {worldRot?: [...ThreeD, order?: THREE.EulerOrder]}
 & {rotSpeed?: ThreeD}
 
 const faceColor = 0xefbf21
-function Eye({dirs: pos}: ThreeD) {
+function Eye({pos}: {pos: ThreeD}) {
   return (
     <group position={pos} scale={[1, 1.4, .1]} >
       <mesh>
@@ -62,8 +62,8 @@ function Face(props: JSX.IntrinsicElements['group']) {
     <group {...props} >
       <Float rotationIntensity={0} floatingRange={[0, .5]} speed={2}>
         <group name='eyes'>
-          <Eye dirs={[0, 0, 0]} />
-          <Eye dirs={[-4.1, 0, 0]} />
+          <Eye pos={[0, 0, 0]} />
+          <Eye pos={[-4.1, 0, 0]} />
         </group>
         <Smile />
       </Float>
@@ -71,16 +71,16 @@ function Face(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-function Globe({ worldRot, rotSpeed = {dirs: [0,0,0]}, ...props }: GlobeProps) {
+function Globe({ worldRot = [0,0,0], rotSpeed = [0,0,0], ...props }: GlobeProps) {
   const groupRef = useRef<THREE.Group>(null)
   const meshRef = useRef<THREE.Mesh>(null)
-  const { nodes, materials } = useGLTF('/uploads_files_5973654_globe.glb') as GLTFResult
+  const { nodes, materials } = useGLTF('/uploads_files_5973654_globe.glb') as unknown as GLTFResult
 
   useFrame((state, delta) => {
     const rot = meshRef.current.rotation
-    rot.x += delta * rotSpeed['dirs'][0]
-    rot.y += delta * rotSpeed['dirs'][1]
-    rot.z += delta * rotSpeed['dirs'][2]
+    rot.x += delta * rotSpeed[0]
+    rot.y += delta * rotSpeed[1]
+    rot.z += delta * rotSpeed[2]
   })
 
   return (

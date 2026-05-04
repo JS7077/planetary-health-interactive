@@ -9,7 +9,7 @@ export function IntroScene(actions: SceneProps) {
 
     return (
         <group>
-            <Earth rotSpeed={{dirs:[0,5,0]}} />
+            <Earth rotSpeed={[0,5,0]} />
 
             <Html position={10} >
                 <h1>

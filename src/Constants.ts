@@ -14,3 +14,5 @@ export const Pages = {
 export type Page = typeof Pages[keyof typeof Pages]
 
 export const PAGE_QUERY: string = 'page';
+
+export type ThreeD = [x: number, y: number, z: number]
