@@ -1,5 +1,5 @@
 import type { SetURLSearchParams } from "react-router-dom";
-import { Pages, PAGE_QUERY, type Page } from "../Constants";
+import { Pages, PAGE_QUERY, type Page, useCSSVariable } from "../Constants";
 import { Html, RoundedBox } from "@react-three/drei";
 import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
 import Collapse from '../assets/collapse-svgrepo-com.svg?react' //https://www.svgrepo.com/show/459017/collapse.svg
@@ -22,6 +22,7 @@ function Sidebar({setSearchParams, setIsCollapsed}: {setSearchParams: SetURLSear
         <Html position={[-24.5,11.86,0]} >
             <nav>
                 <Collapse 
+                id="collapse"
                 height={svgSide}
                 width={svgSide}
                 onClick={() => setIsCollapsed(true)}
@@ -57,7 +58,7 @@ function Menu(setIsCollapsed: {setIsCollapsed: Dispatch<SetStateAction<boolean>>
             bevelSegments={4}
             onClick={() => setIsCollapsed.setIsCollapsed(false)} 
             >
-                <meshToonMaterial color={"#8FC988"}/>
+                <meshToonMaterial color={useCSSVariable('--link-color')}/>
             </RoundedBox>
             <group position={[0,0,1]}>
                 <MenuBar position={[0,.27,0]} />

@@ -1,5 +1,5 @@
 import type { SceneProps } from "../App";
-import { Pages } from "../Constants";
+import { Pages, useCSSVariable } from "../Constants";
 import { Earth } from "../Earth";
 import { TooltipPoint } from "../ui/Text";
 import { RadiationSquiggle } from "./Ray";
@@ -29,7 +29,7 @@ export function OzoneScene(actions: SceneProps) {
                 </group>
             </group>
 
-            <TooltipPoint position={[0,0,0]} />
+            <TooltipPoint title="Ozone" text="O2" position={[0,0,0]} color={useCSSVariable('--color-sea')} />
         </group>
     )
 }

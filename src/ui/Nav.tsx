@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as THREE from 'three'
+import { useCSSVariable } from '../Constants';
 
 function Button({ onClick, isUp }: { onClick: ()=>void, isUp?: boolean }) {
     const r = 5;
@@ -27,7 +28,7 @@ function Button({ onClick, isUp }: { onClick: ()=>void, isUp?: boolean }) {
             <group scale={[1, .85, 1]} onClick={onClick} >
                 <mesh rotation={[Math.PI/2, 0, 0]} >
                     <cylinderGeometry args={[r,r, 2]} />
-                    <meshToonMaterial color={'teal'} transparent opacity={.75} />
+                    <meshToonMaterial color={useCSSVariable('--color-sea')} transparent opacity={.75} />
                 </mesh>
                 <mesh position={[-l, -r/5, 0]} >
                     <meshToonMaterial color='black' />

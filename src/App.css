@@ -1,3 +1,24 @@
+:root {
+  --color-link: #8FC988;
+  /* Nature & Vitality */
+  --color-forest: #064e3b;
+  --color-moss: #166534;
+  --color-sage: #dcfce7;
+  
+  /* Ocean & Atmosphere */
+  --color-ocean: #1e3a8a;
+  --color-sky: #e0f2fe;
+  --color-sea: #0D9488;
+  
+  /* Earth & Soil */
+  --color-soil: #4b3f35;
+  --color-clay: #9a3412;
+  
+  /* UI Specifics */
+  --tooltip-bg: rgba(255, 255, 255, 0.95);
+  --tooltip-border: var(--color-sage);
+}
+
 #main {
   display: flex;
   flex-direction: row;
@@ -8,7 +29,7 @@
 nav {
   width: 16svw;
   height: 100svh;
-  color: #8FC988;
+  color: var(--color-link);
   background-color: white;
 }
 
@@ -16,10 +37,6 @@ li {
   text-align: left;
   margin-top: 3px;
 }
-
-/* Sidebar {
-  width: 600px;
-} */
 
 Canvas {
   height: 100%;
@@ -39,10 +56,40 @@ a {
   text-decoration: underline;
 }
 
-svg {
+#collapse {
   display: block;
   padding-top: .7em;
   margin-left: .5em;
   margin-right: .5em;
   margin-bottom: -.8em;
+}
+
+.tooltip {
+  cursor: pointer;
+  width: 80;
+}
+
+/* Container */
+.info {
+  background: var(--tooltip-bg); /* Off-white Parchment */
+  border-left: 4px solid var(--color-link); /* Bright Green accent */
+  border-radius: 4px;
+  padding: 12px 12px;
+}
+
+/* Header */
+h1 {
+  font-family: 'Inter', sans-serif;
+  color: #064e3b; /* Deep Emerald */
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 4px;
+}
+
+/* Paragraph */
+p {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #4b3f35; /* Bark Brown */
+  font-size: 0.95rem;
 }
