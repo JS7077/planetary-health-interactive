@@ -19,6 +19,8 @@ export const PAGE_QUERY: string = 'page';
 
 export type ThreeD = [x: number, y: number, z: number]
 
+export type Runnable = () => void
+
 export function useCSSVariable(variableName: string): string {
   // 1. Initialize state with the actual value immediately
   const [color, setColor] = useState(() => {

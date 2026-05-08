@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import * as THREE from 'three'
-import { useCSSVariable } from '../Constants';
+import { useCSSVariable, type Runnable } from '../Constants';
 
-function Button({ onClick, isUp }: { onClick: ()=>void, isUp?: boolean }) {
+function Button({ onClick, isUp }: { onClick: Runnable, isUp?: boolean }) {
     const r = 5;
 
     const h = 4, l = 4, w = 1.5
@@ -43,7 +43,7 @@ function Button({ onClick, isUp }: { onClick: ()=>void, isUp?: boolean }) {
     )
 }
 
-export function Buttons({onUp, onDown}: { onUp: ()=>void, onDown: ()=>void} ) {
+export function Buttons({onUp, onDown}: { onUp: Runnable, onDown: Runnable} ) {
     return (
         <group>
             <Button onClick={onUp} isUp />

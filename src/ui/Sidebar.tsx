@@ -19,7 +19,8 @@ function Sidebar({setSearchParams, setIsCollapsed}: {setSearchParams: SetURLSear
     const svgSide = '1.5em'
 
     return (
-        <Html position={[-24.5,11.86,0]} >
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        <Html calculatePosition={(_el, _camera, _size) => [0, 0]} onPointerDown={(e) => e.stopPropagation()} >
             <nav>
                 <Collapse 
                 id="collapse"
@@ -48,7 +49,7 @@ function Item({pg, setSearchParams, setIsCollapsed}: {pg: Page, setSearchParams:
     )
 }
 
-function Menu(setIsCollapsed: {setIsCollapsed: Dispatch<SetStateAction<boolean>>}) {
+function Menu({setIsCollapsed}: {setIsCollapsed: Dispatch<SetStateAction<boolean>>}) {
     return (
         <group position={[-23.65,11,0]} >
             <RoundedBox 
@@ -56,9 +57,12 @@ function Menu(setIsCollapsed: {setIsCollapsed: Dispatch<SetStateAction<boolean>>
             radius={.1}
             smoothness={4}
             bevelSegments={4}
-            onClick={() => setIsCollapsed.setIsCollapsed(false)} 
+            onClick={(e) => {
+                e.stopPropagation()
+                setIsCollapsed(false)
+            }} 
             >
-                <meshToonMaterial color={useCSSVariable('--link-color')}/>
+                <meshToonMaterial color={useCSSVariable('--color-link')}/>
             </RoundedBox>
             <group position={[0,0,1]}>
                 <MenuBar position={[0,.27,0]} />

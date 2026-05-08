@@ -1,23 +1,36 @@
+import { useState } from "react";
 import type { SceneProps } from "../App";
-import { Pages, useCSSVariable } from "../Constants";
+import { Pages, useCSSVariable, type ThreeD } from "../Constants";
 import { Earth } from "../Earth";
 import { TooltipPoint } from "../ui/Text";
 import { RadiationSquiggle } from "./Ray";
 import { Forcefield } from "./Shield";
 import { Sun } from "./Sun";
 
+const TOOLTIPS = {
+    DEF: {
+        title: 'Definition',
+        text: "Ozone (O3) in the stratosphere filters out ultraviolet radiation that is harmful to biological systems. ",
+        position: [0,0,0] as ThreeD
+    }
+}
 
 export function OzoneScene(actions: SceneProps) {
     actions.foos.setOnUp(Pages.NOVEL_ENTS)
     actions.foos.setOnDown(Pages.OCEAN_ACID)
 
+    const [hasOzone, setHasOzone] = useState(true);
+
     const earthX = -10;
+
+    const tipColor = useCSSVariable('color-sea')
+    const tooltips = Object.values(TOOLTIPS).map(tip => <TooltipPoint title={tip.title} text={tip.text} position={tip.position} color={tipColor} />)
 
     return (
         <group>
             <group>
                 <Earth worldRot={[Math.PI * -0.5, 0, 0]} position={[earthX, 0, 0]} scale={1.1} rotSpeed={[0, 0.05, 0]}/>
-                <Forcefield radius={9} position={[earthX, 0, 1]}  />
+                {hasOzone && <Forcefield radius={9} position={[earthX, 0, 1]} />}
             </group>
 
             <group>
@@ -29,7 +42,10 @@ export function OzoneScene(actions: SceneProps) {
                 </group>
             </group>
 
-            <TooltipPoint title="Ozone" text="O2" position={[0,0,0]} color={useCSSVariable('--color-sea')} />
+            {tooltips}
+            <TooltipPoint title="Ozone Degradation"
+            text="Certain chemicals that we release into the atmosphere, such as chlorofluorocarbons (CFCs), cause ozone molecules to break apart, depleting the ozone layer."
+            color={useCSSVariable('--color-sea')} position={[1,1,0]} doOnClick={() => setHasOzone(false)} />
         </group>
     )
 }
