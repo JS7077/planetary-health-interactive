@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState, type Dispatch, type SetStateAction } from "react";
 import type { SceneProps } from "../App";
 import { Pages, useCSSVariable, type ThreeD } from "../Constants";
 import { Earth } from "../Earth";
@@ -9,9 +9,16 @@ import { Sun } from "./Sun";
 
 const TOOLTIPS = {
     DEF: {
+        key: 0,
         title: 'Definition',
-        text: "Ozone (O3) in the stratosphere filters out ultraviolet radiation that is harmful to biological systems. ",
+        text: "Ozone (O3) in the stratosphere filters out ultraviolet radiation that is harmful to biological systems.",
         position: [0,0,0] as ThreeD
+    },
+    DEGRADATION: {
+        key: 1,
+        title: "Ozone Degradation",
+        text: "Certain chemicals that we release into the atmosphere, such as chlorofluorocarbons (CFCs), cause ozone molecules to break apart, depleting the ozone layer.",
+        position: [1,1,0] as ThreeD,
     }
 }
 
@@ -19,12 +26,17 @@ export function OzoneScene(actions: SceneProps) {
     actions.foos.setOnUp(Pages.NOVEL_ENTS)
     actions.foos.setOnDown(Pages.OCEAN_ACID)
 
+    let shownTips = [TOOLTIPS.DEF]
     const [hasOzone, setHasOzone] = useState(true);
+    const [isClicked, setIsClicked] = useState(Object.values(TOOLTIPS).map(() => false)) as [boolean[], Dispatch<SetStateAction<boolean[]>>]
 
     const earthX = -10;
 
-    const tipColor = useCSSVariable('color-sea')
-    const tooltips = Object.values(TOOLTIPS).map(tip => <TooltipPoint title={tip.title} text={tip.text} position={tip.position} color={tipColor} />)
+    const tipColor = useCSSVariable('--color-sea')
+    const tooltips = Object.values(shownTips).map(tip => 
+    <TooltipPoint title={tip.title} text={tip.text} position={tip.position} color={tipColor} key={tip.key}
+    doOnClick={() => setIsClicked(arr => {arr[tip.key] = true; return arr;})} 
+    />)
 
     return (
         <group>
@@ -42,10 +54,8 @@ export function OzoneScene(actions: SceneProps) {
                 </group>
             </group>
 
-            {tooltips}
-            <TooltipPoint title="Ozone Degradation"
-            text="Certain chemicals that we release into the atmosphere, such as chlorofluorocarbons (CFCs), cause ozone molecules to break apart, depleting the ozone layer."
-            color={useCSSVariable('--color-sea')} position={[1,1,0]} doOnClick={() => setHasOzone(false)} />
+            {tooltips.filter(tip => !isClicked[tip.key as unknown as number])}
+            console.log(isClicked)
         </group>
     )
 }

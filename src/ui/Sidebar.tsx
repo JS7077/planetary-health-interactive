@@ -14,7 +14,7 @@ export function Manager({setSearchParams}: {setSearchParams: SetURLSearchParams}
 
 function Sidebar({setSearchParams, setIsCollapsed}: {setSearchParams: SetURLSearchParams, setIsCollapsed: Dispatch<SetStateAction<boolean>>}) {
     const pages = Object.values(Pages) as Page[]
-    const items = pages.map(pg => <Item pg={pg} setSearchParams={setSearchParams} setIsCollapsed={setIsCollapsed} />)
+    const items = pages.map(pg => <Item key={pg} setSearchParams={setSearchParams} setIsCollapsed={setIsCollapsed} />)
 
     const svgSide = '1.5em'
 
@@ -36,14 +36,14 @@ function Sidebar({setSearchParams, setIsCollapsed}: {setSearchParams: SetURLSear
     )
 }
 
-function Item({pg, setSearchParams, setIsCollapsed}: {pg: Page, setSearchParams: SetURLSearchParams, setIsCollapsed: Dispatch<SetStateAction<boolean>>}) {
+function Item({key, setSearchParams, setIsCollapsed}: {key: Page, setSearchParams: SetURLSearchParams, setIsCollapsed: Dispatch<SetStateAction<boolean>>}) {
     return (
         <li>
             <a onClick={()=>{
-                setSearchParams([[PAGE_QUERY, pg]])
+                setSearchParams([[PAGE_QUERY, key]])
                 setIsCollapsed(true)
             }}>
-                {pg}
+                {key}
             </a>
         </li>
     )
