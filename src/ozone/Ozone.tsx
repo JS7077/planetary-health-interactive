@@ -1,4 +1,4 @@
-import { useMemo, useState, type Dispatch, type SetStateAction } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import type { SceneProps } from "../App";
 import { Pages, useCSSVariable, type ThreeD } from "../Constants";
 import { Earth } from "../Earth";

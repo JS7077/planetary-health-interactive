@@ -14,7 +14,7 @@ export function Manager({setSearchParams}: {setSearchParams: SetURLSearchParams}
 
 function Sidebar({setSearchParams, setIsCollapsed}: {setSearchParams: SetURLSearchParams, setIsCollapsed: Dispatch<SetStateAction<boolean>>}) {
     const pages = Object.values(Pages) as Page[]
-    const items = pages.map(pg => <Item key={pg} setSearchParams={setSearchParams} setIsCollapsed={setIsCollapsed} />)
+    const items = pages.map(pg => <Item page={pg} setSearchParams={setSearchParams} setIsCollapsed={setIsCollapsed} />)
 
     const svgSide = '1.5em'
 
@@ -30,21 +30,22 @@ function Sidebar({setSearchParams, setIsCollapsed}: {setSearchParams: SetURLSear
                 />
                 <ol>
                     {items}
+                    {/* <Item page={'sno'} setSearchParams={setSearchParams} setIsCollapsed={setIsCollapsed} /> */}
                 </ol>
             </nav>
         </Html>
     )
 }
 
-function Item({key, setSearchParams, setIsCollapsed}: {key: Page, setSearchParams: SetURLSearchParams, setIsCollapsed: Dispatch<SetStateAction<boolean>>}) {
+function Item({page, setSearchParams, setIsCollapsed}: {page: Page, setSearchParams: SetURLSearchParams, setIsCollapsed: Dispatch<SetStateAction<boolean>>}) {
     return (
         <li>
-            <a onClick={()=>{
-                setSearchParams([[PAGE_QUERY, key]])
+            <button onClick={()=>{
+                setSearchParams([[PAGE_QUERY, page]])
                 setIsCollapsed(true)
             }}>
-                {key}
-            </a>
+                {page}
+            </button>
         </li>
     )
 }
@@ -62,7 +63,7 @@ function Menu({setIsCollapsed}: {setIsCollapsed: Dispatch<SetStateAction<boolean
                 setIsCollapsed(false)
             }} 
             >
-                <meshToonMaterial color={useCSSVariable('--color-link')}/>
+                <meshToonMaterial color={useCSSVariable('--color-menu')}/>
             </RoundedBox>
             <group position={[0,0,1]}>
                 <MenuBar position={[0,.27,0]} />

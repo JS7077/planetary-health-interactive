@@ -1,5 +1,4 @@
 :root {
-  --color-link: #8FC988;
   /* Nature & Vitality */
   --color-forest: #064e3b;
   --color-moss: #166534;
@@ -17,6 +16,9 @@
   /* UI Specifics */
   --tooltip-bg: rgba(255, 255, 255, 0.95);
   --tooltip-border: var(--color-sage);
+
+  --color-menu: #8FC988;
+  --color-link: var(--color-moss);
 }
 
 #main {
@@ -30,7 +32,7 @@ nav {
   width: 16svw;
   height: 100svh;
   color: var(--color-link);
-  background-color: white;
+  background-color: var(--color-sky);
 }
 
 li {
@@ -48,12 +50,13 @@ Canvas {
   background-image: url(https://cdn.mos.cms.futurecdn.net/HuGGeENt6kGyixe3hT9tnY.jpg);
 }
 
-a:hover {
-  cursor: pointer;
-}
-
-a {
+button {
   text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: var(--color-link);
 }
 
 #collapse {
