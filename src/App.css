@@ -117,3 +117,9 @@ p {
   max-height: 10em; 
   overflow-y: auto;
 }
+
+.dialogue {
+  background-color: var(--color-clay);
+  width: 100svw;
+  height: 20svh;
+}

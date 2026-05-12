@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as THREE from 'three'
 import { useCSSVariable, type Runnable } from '../Constants';
 
-function Button({ onClick, isUp }: { onClick: Runnable, isUp?: boolean }) {
+function Button({ onClick, isLeft }: { onClick: Runnable, isLeft?: boolean }) {
     const r = 5;
 
     const h = 4, l = 4, w = 1.5
@@ -19,9 +19,9 @@ function Button({ onClick, isUp }: { onClick: Runnable, isUp?: boolean }) {
 
     return (
         <group 
-        rotation={[0,0,isUp?0:Math.PI]} 
+        rotation={[0,0,Math.PI/2 + (isLeft?0:Math.PI)]} 
         scale={hover?.31:.3} 
-        position={[2, 10 * (isUp?1:-1), 0]} 
+        position={[21 * (isLeft?-1:1), -9.5, 20]} 
         onPointerOver={() => setHover(true)}
         onPointerOut={() => setHover(false)}
         >
@@ -43,11 +43,11 @@ function Button({ onClick, isUp }: { onClick: Runnable, isUp?: boolean }) {
     )
 }
 
-export function Buttons({onUp, onDown}: { onUp: Runnable, onDown: Runnable} ) {
+export function Buttons({onLeft, onRight}: { onLeft: Runnable, onRight: Runnable} ) {
     return (
         <group>
-            <Button onClick={onUp} isUp />
-            <Button onClick={onDown} />
+            <Button onClick={onLeft} isLeft />
+            <Button onClick={onRight} />
         </group>
     )
 }

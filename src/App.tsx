@@ -10,13 +10,23 @@ import { Buttons } from './ui/Nav.tsx'
 import { IntroScene } from './intro/Intro.tsx'
 
 export interface SceneProps {foos: { setOnUp: Dispatch<Page>, setOnDown: Dispatch<Page> }}
+export interface SceneInfo {
+    id: number
+    content: string[]
+}
+
+const sceneInfos = [
+  
+]
 
 function App() {
-  const [onUp, setOnUp] = useState('')
-  const [onDown, setOnDown] = useState('')
+  const [onLeft, setOnUp] = useState('')
+  const [onRight, setOnDown] = useState('')
   const actions = useMemo(() => ({
     setOnUp, setOnDown
   }), [])
+
+  const [infoIndex, setInfoIndex] = useState(0)
 
   const [searchParams, setSearchParams] = useSearchParams()
   let scene;
@@ -34,7 +44,7 @@ function App() {
         <directionalLight position={[10, 10, 5]} intensity={2} />
 
         <Manager setSearchParams={setSearchParams} />
-        <Buttons onUp={()=>setSearchParams([[PAGE_QUERY,onUp]])} onDown={()=>setSearchParams([[PAGE_QUERY,onDown]])} />
+        <Buttons onLeft={()=>setSearchParams([[PAGE_QUERY,onLeft]])} onRight={()=>setSearchParams([[PAGE_QUERY,onRight]])} />
 
         {scene}
       </Canvas>
