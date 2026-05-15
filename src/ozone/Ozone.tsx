@@ -1,35 +1,14 @@
 import { useState } from "react";
 import type { SceneProps } from "../App";
-import { Pages, useCSSVariable, type ThreeD } from "../Constants";
+import { Pages } from "../Constants";
 import { Earth } from "../Earth";
 import { RadiationSquiggle } from "./Ray";
 import { Forcefield } from "./Shield";
 import { Sun } from "./Sun";
-import { Dialogue } from "../ui/Narrate";
-
-export const INFO = [
-    "Ozone (O3) in the stratosphere filters out ultraviolet radiation that is harmful to biological systems.",
-    "Certain chemicals that we release into the atmosphere, such as chlorofluorocarbons (CFCs), cause ozone molecules to break apart, depleting the ozone layer."
-]
-
-const TOOLTIPS = {
-    DEF: {
-        key: 0,
-        title: 'Definition',
-        text: "Ozone (O3) in the stratosphere filters out ultraviolet radiation that is harmful to biological systems.",
-        position: [0,0,0] as ThreeD
-    },
-    DEGRADATION: {
-        key: 1,
-        title: "Ozone Degradation",
-        text: "Certain chemicals that we release into the atmosphere, such as chlorofluorocarbons (CFCs), cause ozone molecules to break apart, depleting the ozone layer.",
-        position: [1,1,0] as ThreeD,
-    }
-}
 
 export function OzoneScene(actions: SceneProps) {
-    actions.foos.setOnUp(Pages.NOVEL_ENTS)
-    actions.foos.setOnDown(Pages.OCEAN_ACID)
+    actions.foos.setOnLeft(Pages.NOVEL_ENTS)
+    actions.foos.setOnRight(Pages.OCEAN_ACID)
 
     const [hasOzone, setHasOzone] = useState(true);
 
@@ -50,8 +29,6 @@ export function OzoneScene(actions: SceneProps) {
                     <RadiationSquiggle position={[5.89, -3.03642+earthY, 0]} rotation={[0, -0.12, Math.PI / 1.8]} scale={3.32}/>
                 </group>
             </group>
-
-            <Dialogue />
         </group>
     )
 }

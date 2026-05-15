@@ -5,8 +5,8 @@ import { TooltipPoint } from "../ui/Text";
 
 
 export function ClimateChangeScene(actions: SceneProps) {
-    actions.foos.setOnUp(Pages.INTRO)
-    actions.foos.setOnDown(Pages.BIOSPHERE)
+    actions.foos.setOnLeft(Pages.INTRO)
+    actions.foos.setOnRight(Pages.BIOSPHERE)
 
     return (
         <group>
