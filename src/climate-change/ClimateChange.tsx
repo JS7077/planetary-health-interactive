@@ -4,9 +4,9 @@ import { Earth } from "../Earth";
 import { TooltipPoint } from "../ui/Text";
 
 
-export function ClimateChangeScene(actions: SceneProps) {
-    actions.foos.setOnLeft(Pages.INTRO)
-    actions.foos.setOnRight(Pages.BIOSPHERE)
+export function ClimateChangeScene({actions}: SceneProps) {
+    actions.setOnLeft(Pages.INTRO)
+    actions.setOnRight(Pages.BIOSPHERE)
 
     return (
         <group>

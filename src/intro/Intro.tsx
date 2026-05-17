@@ -3,9 +3,9 @@ import { type SceneProps } from '../App'
 import { Pages } from '../Constants'
 import { Earth } from '../Earth'
 
-export function IntroScene(actions: SceneProps) {
-    actions.foos.setOnLeft(Pages.INTRO)
-    actions.foos.setOnRight(Pages.CLIMATE)
+export function IntroScene({actions}: SceneProps) {
+    actions.setOnLeft(Pages.INTRO)
+    actions.setOnRight(Pages.CLIMATE)
 
     return (
         <group>

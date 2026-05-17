@@ -2,17 +2,17 @@ import { useMemo, useRef, type JSX } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-export const Forcefield = ({ radius = 1.6, shieldColor = '#0088ff', ...props }: 
-    JSX.IntrinsicElements['mesh'] & {radius?: number, shieldColor?: string}) => {
+export const Forcefield = ({ radius = 1.6, shieldColor = '#000000', holeScale=10, holeThreshold=.3, ...props }: 
+    JSX.IntrinsicElements['mesh'] & {radius?: number, shieldColor?: string, holeScale?: number, holeThreshold?: number}) => {
   const meshRef = useRef(null)
   
   const initUniforms = useMemo(() => ({
     uTime: { value: 0 },
     uColor: { value: new THREE.Color(shieldColor) },
     uRadius: { value: radius },
-    uHoleScale: { value: 10 }, // Size of the holes
-    uHoleThreshold: { value: 0.3 } // How many holes (0.0 to 1.0)
-  }), [radius, shieldColor])
+    uHoleScale: { value: holeScale }, // Size of the holes
+    uHoleThreshold: { value: holeThreshold } // How many holes (0.0 to 1.0)
+  }), [radius, shieldColor, holeScale, holeThreshold])
   const uniforms = useRef(initUniforms)
 
   useFrame((state) => {

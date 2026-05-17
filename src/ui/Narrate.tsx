@@ -18,6 +18,7 @@ export function Dialogue({scene, words}: {scene: Page, words: string}) {
             <Text
             color={useCSSVariable('--color-forest')}
             fontSize={.7}
+            maxWidth={35}
             >
                 {words}
             </Text>

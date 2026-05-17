@@ -29,8 +29,9 @@ const NOVEL_ENTS_INFO = [
 ]
 
 const OZONE_INFO = [
-    "Ozone (O3) in the stratosphere filters out ultraviolet radiation that is harmful to biological systems.",
-    "Certain chemicals that we release into the atmosphere, such as chlorofluorocarbons (CFCs), cause ozone molecules to break apart, depleting the ozone layer."
+    "Ozone is a molecule made of three oxygen atoms primarily located in the stratosphere that acts as a shield to prevent large portions of harmful ultraviolet (UV) rays from reaching the surface.",
+    'Industrialization caused us to start releasing many more chemicals into the atmosphere, including chlorofluorocarbons and others that break ozone molecules apart.',
+
 ]
 
 const OCEAN_ACID_INFO = [
