@@ -32,11 +32,12 @@ export function OzoneScene({actions, infoIndex}: SceneProps & {infoIndex: number
                 <group>
                     <group scale={infoIndex!==1 ? 1 : 1.02} >
                         <RadiationSquiggles position={[5.76, 2.8456+earthY, 4]} rotation={[0.013, 0.3, -Math.PI / 1.89]} scale={3.186}/>
-                        <RadiationSquiggles position={[5.28, 0+earthY, 3]} rotation={[0.23, 0.0, Math.PI / 2]} scale={3.2}/>
-                        <RadiationSquiggles position={[5.89, -3.03642+earthY, 0]} rotation={[0, -0.12, Math.PI / 1.8]} scale={3.32}/>
+                        <RadiationSquiggles position={[5.28, 0+earthY, 3]} rotation={[Math.PI, 0.0, -Math.PI / 2]} scale={3.2}/>
+                        <RadiationSquiggles position={[5.89, -3.03642+earthY, 0]} rotation={[0, -0.12, -Math.PI / 2.3]} scale={3.32}/>
                     </group>
                     <group>
-                        {/* <RadiationSquiggle position={[5.89, -3.03642+earthY, 0]} rotation={[0, -0.12, Math.PI / 1.8]} scale={3.32}/> */}
+                        <RadiationSquiggles position={[12+earthX, 6.5+earthY, 2]} rotation={[0, 0, Math.PI / 1.4]} scale={infoIndex!==1 ? 2.32 : 1}/>
+                        <RadiationSquiggles position={[11.+earthX, -8.5+earthY, 2]} rotation={[Math.PI, 0, Math.PI / 1.3]} scale={infoIndex!==1 ? 2.18 : 1.1}/>
                     </group>
                 </group>
             </group>

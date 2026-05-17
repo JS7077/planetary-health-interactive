@@ -57,41 +57,43 @@ function RadiationSquiggle({speed, range, ...props}:
   return (
     <group rotation={[0,0,Math.PI/2]} >
       <Float speed={speed} rotationIntensity={0} floatingRange={[range,-range]} >
-        <mesh ref={meshRef} {...props} >
-            {/* High segment count is vital for smooth squiggles */}
-            <planeGeometry args={[0.05, 4, 1, 128]} />
-            <shaderMaterial
-            transparent
-            side={THREE.DoubleSide}
-            blending={THREE.AdditiveBlending}
-            uniforms={uniforms}
-            vertexShader={`
-                varying vec2 vUv;
-                uniform float uTime;
-                ${noiseGLSL}
-                void main() {
-                vUv = uv;
-                vec3 pos = position;
-                // Distortion math: Frequency * position + Time
-                float noise = snoise(vec2(pos.y * 2.0, uTime * 0.5));
-                pos.x += noise * 0.2 * (uv.y); // Squiggle more at the tip
-                pos.z += sin(pos.y * 5.0 + uTime * 2.0) * 0.1;
-                
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-                }
-            `}
-            fragmentShader={`
-                varying vec2 vUv;
-                uniform vec3 uColor;
-                void main() {
-                // Fade out at edges and ends
-                float strength = smoothstep(0.0, 0.2, vUv.y) * smoothstep(1.0, 0.8, vUv.y);
-                strength *= smoothstep(0.0, 0.5, vUv.x) * smoothstep(1.0, 0.5, vUv.x);
-                gl_FragColor = vec4(uColor, strength * 0.8);
-                }
-            `}
-            />
-        </mesh>
+        <group rotation={[0,0,-Math.PI/2]} >
+          <mesh ref={meshRef} {...props} >
+              {/* High segment count is vital for smooth squiggles */}
+              <planeGeometry args={[0.05, 4, 1, 128]} />
+              <shaderMaterial
+              transparent
+              side={THREE.DoubleSide}
+              blending={THREE.AdditiveBlending}
+              uniforms={uniforms}
+              vertexShader={`
+                  varying vec2 vUv;
+                  uniform float uTime;
+                  ${noiseGLSL}
+                  void main() {
+                  vUv = uv;
+                  vec3 pos = position;
+                  // Distortion math: Frequency * position + Time
+                  float noise = snoise(vec2(pos.y * 2.0, uTime * 0.5));
+                  pos.x += noise * 0.2 * (uv.y); // Squiggle more at the tip
+                  pos.z += sin(pos.y * 5.0 + uTime * 2.0) * 0.1;
+                  
+                  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+                  }
+              `}
+              fragmentShader={`
+                  varying vec2 vUv;
+                  uniform vec3 uColor;
+                  void main() {
+                  // Fade out at edges and ends
+                  float strength = smoothstep(0.0, 0.2, vUv.y) * smoothstep(1.0, 0.8, vUv.y);
+                  strength *= smoothstep(0.0, 0.5, vUv.x) * smoothstep(1.0, 0.5, vUv.x);
+                  gl_FragColor = vec4(uColor, strength * 0.8);
+                  }
+              `}
+              />
+          </mesh>
+        </group>
       </Float>
     </group>
   )
